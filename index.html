@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>Results : </h1>
+
+    <script>
+        var array = []
+
+        for (let i = 0; i < 10; i++) 
+            array[i] = i;
+
+        array = shuffle(array);
+        // http://stackoverflow.com/questions/962802#962890
+        function shuffle(array) {
+
+            var tmp, current, top = array.length;
+            
+            if(top) while(--top) {
+            
+                current = Math.floor(Math.random() * (top + 1));
+                tmp = array[current];
+                array[current] = array[top];
+                array[top] = tmp;
+            }
+            
+            return array;
+        }
+
+        function mergeSort(arr1, order) {
+            
+            if (arr1.length > 1) {
+            
+                var iBegin = 0,
+                    iEnd = arr1.length,
+                    iMiddle = (iEnd - iBegin) / 2,
+                    leftArr = arr1.slice(iBegin, iMiddle),
+                    rightArr = arr1.slice(iMiddle, iEnd);
+                    
+                //Recursively call the function to divide the array
+                mergeSort(leftArr);
+                mergeSort(rightArr);
+                
+                var i = 0,
+                    j = 0,
+                    k = 0;
+                
+                while(i < leftArr.length && j < rightArr.length) {
+                
+                    if (leftArr[i] < rightArr[j]) {
+                    
+                        arr1[k] = leftArr[i];
+                        i += 1;
+                    } else {
+                    
+                        arr1[k] = rightArr[j];
+                        j += 1;
+                    }
+                    
+                    k += 1;
+                }
+                
+                while (i < leftArr.length) {
+                
+                    arr1[k] = leftArr[i];
+                    i += 1;
+                    k += 1;
+                }
+                
+                while (j < rightArr.length) {
+                
+                    arr1[k] = rightArr[j];
+                    j += 1;
+                    k += 1;
+                }
+            }
+            
+            if (order == 'TtB') 
+                array = array.reverse();
+        }
+
+        console.clear();
+        document.write('Input: ' + array + '<br>');
+
+        // mergeSort(array, 'TtB');   Ttb (Top to Bottom) option allows you to reverse the sorted array.
+        mergeSort(array);
+
+        document.write('Output: ' + array);
+    </script>
+</body>
+</html>
